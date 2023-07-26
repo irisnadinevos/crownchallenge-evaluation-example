@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
 
-import numpy as np
-
 from pathlib import Path
+
+import numpy as np
 from sklearn.metrics import balanced_accuracy_score
 
 from utils import read_json, convert_to_ordinal
 
-test_dir = ''
-output_dir = Path('/output/crownchallenge/teamname_task1')
+test_dir = Path('/crownchallenge/test')
+output_dir = Path('/crownchallenge/output/teamname_task1')
+
+
+def get_balanced_accuracy(prediction, y_true):
+    return balanced_accuracy_score(prediction, y_true)
 
 
 def main():
     """Main function"""
-    
     result_files = list(output_dir.glob('*/result_Lippert.json'))
-    assert len(result_files) ==  300
+    if len(result_files) != 300:
+        raise RuntimeError('Wrong number of result files')
 
     predictions_ant = np.zeros(300, dtype=int)
     test_ant = np.zeros(300, dtype=int)
@@ -38,19 +42,13 @@ def main():
         
         predictions_pos[i] = convert_to_ordinal(prediction['Posterior class'])
         test_pos[i] = convert_to_ordinal(label['Posterior class'])
-        
-        
+
     # Print results
     ba_anterior = get_balanced_accuracy(predictions_ant, test_ant)
     ba_posterior = get_balanced_accuracy(predictions_pos, test_pos)
     
     print(f'BA (ant): {ba_anterior}')    
     print(f'BA (pos): {ba_posterior}')
-    
-
-def get_balanced_accuracy(prediction, y_true):
-    
-    return balanced_accuracy_score(prediction, y_true)
 
 
 if __name__ == "__main__":
