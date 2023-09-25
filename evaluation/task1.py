@@ -44,8 +44,8 @@ def main():
         test_pos[i] = convert_to_ordinal(label['Posterior class'])
 
     # Print results
-    ba_anterior = get_balanced_accuracy(predictions_ant, test_ant)
-    ba_posterior = get_balanced_accuracy(predictions_pos, test_pos)
+    ba_anterior = get_balanced_accuracy(test_ant, predictions_ant)
+    ba_posterior = get_balanced_accuracy(test_pos, predictions_pos)
     
     print(f'BA (ant): {ba_anterior}')    
     print(f'BA (pos): {ba_posterior}')
