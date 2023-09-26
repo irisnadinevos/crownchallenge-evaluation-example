@@ -11,8 +11,8 @@ test_dir = Path('/crownchallenge/test')
 output_dir = Path('/crownchallenge/output/teamname_task1')
 
 
-def get_balanced_accuracy(prediction, y_true):
-    return balanced_accuracy_score(prediction, y_true)
+def get_balanced_accuracy(y_true, prediction):
+    return balanced_accuracy_score(y_true, prediction)
 
 
 def main():
